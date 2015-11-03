@@ -1,3 +1,4 @@
+-- Creates resource consents database view via a linked server to the NCS MySQL database (Need to setup linked server connection in SQL server first)
 USE [GIS_Vector_Core]
 GO
 create view vwResourceConsents as SELECT * FROM OPENQUERY (NCS ,

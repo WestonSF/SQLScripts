@@ -1,3 +1,4 @@
+-- Creates licences database view via a linked server to the NCS MySQL database (Need to setup linked server connection in SQL server first)
 USE [GIS_Vector_Core]
 GO
 create view vwLicences as SELECT * FROM OPENQUERY(NCS, 

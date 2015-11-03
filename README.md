@@ -4,7 +4,7 @@ A number of SQL scripts to use with RDBMS.
 
 ## Features
 
-* Create NCS views
+* Create NCS MySQL views
 * Setup ArcGIS database users
 * Backup database
 

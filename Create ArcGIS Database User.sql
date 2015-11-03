@@ -1,7 +1,7 @@
 -- Setup variables
-DECLARE @database varchar(MAX) = 'SummitGIS'; 
+DECLARE @database varchar(MAX) = 'GIS'; 
 DECLARE @authentication varchar(MAX) = 'Windows'; -- Windows or SQL Server
-DECLARE @userName varchar(MAX) = 'SFM\kyran.dromgool'; -- If windows authentication, needs to be Domain\User
+DECLARE @userName varchar(MAX) = 'User'; -- If windows authentication, needs to be Domain\User
 DECLARE @userPassword varchar(MAX) = ''; -- Not needed if windows authentication
 DECLARE @permissions varchar(MAX) = 'Edit'; -- View or Edit
 
