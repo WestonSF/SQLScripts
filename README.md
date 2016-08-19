@@ -4,9 +4,10 @@ A number of SQL scripts to use with RDBMS.
 
 ## Features
 
-* Create NCS MySQL views
-* Setup ArcGIS database users
+* Create ArcGIS view or edit database user
+* Setup ArcGIS initial database users
 * Backup database
+* Create NCS MySQL views
 
 
 ## Requirements
@@ -41,7 +42,7 @@ Anyone and everyone is welcome to contribute.
 
 
 ## Licensing
-Copyright 2015 - Shaun Weston
+Copyright 2016 - Shaun Weston
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

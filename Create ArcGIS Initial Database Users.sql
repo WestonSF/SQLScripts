@@ -1,35 +1,38 @@
--- Setup variables
-DECLARE @database varchar(MAX) = 'Database'; 
-DECLARE @sdePassword varchar(30) = 'Password1'; 
-DECLARE @sdeadminPassword varchar(30) = 'Password1'; 
-DECLARE @agsviewerPassword varchar(30) = 'Password1'; 
+-- First select the database to be used from the dropdown in SQL Server Management Studio, then change the passwords below before running the script --
 
--- Create the queries
-DECLARE @useDatabase varchar(MAX) = 'USE ' + @database;
-CREATE LOGIN sde WITH PASSWORD = ''' + @sdePassword + ''';
-CREATE LOGIN sdeadmin WITH PASSWORD = ''' + @sdeadminPassword + ''';
-CREATE LOGIN agsviewer WITH PASSWORD = ''' + @agsviewerPassword + ''';
+-- Create the logins and assign server roles --
+CREATE LOGIN sde WITH PASSWORD = 'Password1', CHECK_POLICY = OFF;
+CREATE LOGIN gisadmin WITH PASSWORD = 'Password1', CHECK_POLICY = OFF;
+CREATE LOGIN giseditor WITH PASSWORD = 'Password1', CHECK_POLICY = OFF;
+CREATE LOGIN gisviewer WITH PASSWORD = 'Password1', CHECK_POLICY = OFF;
 EXEC sp_addsrvrolemember @loginame = 'sde', @rolename = 'processadmin';
-EXEC sp_addsrvrolemember @loginame = 'sdeadmin', @rolename = 'processadmin';
-
--- Create users for database --
-EXEC (@useDatabase);
+EXEC sp_addsrvrolemember @loginame = 'gisadmin', @rolename = 'processadmin';
 GO
 
+-- Create user schemas --
 CREATE SCHEMA sde;
 GO
-
-CREATE SCHEMA sdeadmin;
+CREATE SCHEMA gisadmin;
+GO
+CREATE SCHEMA giseditor;
+GO
+CREATE SCHEMA gisviewer;
 GO
 
-CREATE SCHEMA agsviewer;
-GO
-
+-- Create users and assign roles --
 CREATE USER sde FOR LOGIN sde WITH DEFAULT_SCHEMA = sde;
-CREATE USER sdeadmin FOR LOGIN sdeadmin WITH DEFAULT_SCHEMA = sdeadmin;
-EXEC sp_addrolemember 'db_owner', 'sdeadmin';
-EXEC sp_addrolemember 'db_datawriter', 'sdeadmin';
-EXEC sp_addrolemember 'db_datareader', 'sdeadmin';
-CREATE USER agsviewer FOR LOGIN agsviewer WITH DEFAULT_SCHEMA = agsviewer;
-EXEC sp_addrolemember 'db_datareader', 'agsviewer';
+CREATE USER gisadmin FOR LOGIN gisadmin WITH DEFAULT_SCHEMA = gisadmin;
+EXEC sp_addrolemember 'db_owner', 'gisadmin';
+EXEC sp_addrolemember 'db_datawriter', 'gisadmin';
+EXEC sp_addrolemember 'db_datareader', 'gisadmin';
+CREATE USER giseditor FOR LOGIN giseditor WITH DEFAULT_SCHEMA = giseditor;
+EXEC sp_addrolemember 'db_datawriter', 'giseditor';
+EXEC sp_addrolemember 'db_datareader', 'giseditor';
+CREATE USER gisviewer FOR LOGIN gisviewer WITH DEFAULT_SCHEMA = gisviewer;
+EXEC sp_addrolemember 'db_datareader', 'gisviewer';
+GO
+
+-- Grant access for users --
+GRANT CONNECT, DELETE, EXECUTE, INSERT, SELECT, UPDATE TO giseditor;
+GRANT CONNECT, SELECT TO gisviewer;
 GO
